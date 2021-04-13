@@ -10,6 +10,10 @@ class ParticipantAvailable extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "state"
+    ];
+
     public function getState() {
         return $this->state;
     }

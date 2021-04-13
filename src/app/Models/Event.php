@@ -13,6 +13,10 @@ class Event extends Model
 
     protected $keyType = 'string';
     public $incrementing = true;
+    protected $fillable = [
+        "title",
+        "description"
+    ];
 
     public function getTitle() {
         return $this->title;
