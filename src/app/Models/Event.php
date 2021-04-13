@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Event extends Model
 {
@@ -22,8 +22,8 @@ class Event extends Model
         return $this->description;
     }
 
-    public function owner(): HasOne {
-        return $this->hasOne(User::class);
+    public function owner(): BelongsTo {
+        return $this->belongsTo(User::class);
     }
 
     public function dates(): HasMany {

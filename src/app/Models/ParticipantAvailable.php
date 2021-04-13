@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ParticipantAvailable extends Model
 {
@@ -14,11 +14,11 @@ class ParticipantAvailable extends Model
         return $this->state;
     }
 
-    public function participant(): HasOne {
-        return $this->HasOne(User::class);
+    public function participant(): BelongsTo {
+        return $this->belongsTo(User::class);
     }
 
-    public function date(): HasOne {
-        return $this->hasOne(Date::class);
+    public function date(): BelongsTo {
+        return $this->belongsTo(Date::class);
     }
 }

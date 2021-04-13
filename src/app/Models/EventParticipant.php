@@ -4,17 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class EventParticipant extends Model
 {
     use HasFactory;
 
-    public function participant(): HasOne {
-        return $this->hasOne(User::class);
+    public function participant(): BelongsTo {
+        return $this->belongsTo(User::class);
     }
 
-    public function event(): HasOne {
-        return $this->hasOne(Event::class);
+    public function event(): BelongsTo {
+        return $this->belongsTo(Event::class);
     }
 }
