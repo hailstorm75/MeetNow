@@ -22,7 +22,7 @@ class Event extends Model
         return $this->description;
     }
 
-    public function getOwner() {
+    public function owner(): HasOne {
         return $this->hasOne(User::class);
     }
 

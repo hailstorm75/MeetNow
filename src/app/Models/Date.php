@@ -15,7 +15,7 @@ class Date extends Model
         return $this->datetime;
     }
 
-    public function getEvent(): HasOne {
+    public function event(): HasOne {
         return $this->hasOne(Event::class);
     }
 
