@@ -11,10 +11,10 @@ class EventParticipant extends Model
     use HasFactory;
 
     public function participant(): BelongsTo {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, "participant_id", "id");
     }
 
     public function event(): BelongsTo {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(Event::class, "event_id", "id");
     }
 }

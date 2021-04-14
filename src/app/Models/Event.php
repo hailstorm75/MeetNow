@@ -27,7 +27,7 @@ class Event extends Model
     }
 
     public function owner(): BelongsTo {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, "owner_id", "id");
     }
 
     public function dates(): HasMany {

@@ -19,10 +19,10 @@ class ParticipantAvailable extends Model
     }
 
     public function participant(): BelongsTo {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, "participant_id", "id");
     }
 
     public function date(): BelongsTo {
-        return $this->belongsTo(Date::class);
+        return $this->belongsTo(Date::class, "date_id", "id");
     }
 }
