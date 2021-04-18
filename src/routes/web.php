@@ -1,6 +1,7 @@
 <?php
 
-    use App\Http\Controllers\MeetingsController;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\MeetingsController;
     use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +15,4 @@
 |
 */
 
-Route::get('/', [MeetingsController::class, 'index']);
+Route::get('/', [IndexController::class, 'index']);
