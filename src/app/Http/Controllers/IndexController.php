@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate
+use Illuminate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
 {
@@ -16,7 +17,7 @@ class IndexController extends Controller
         return response()->view("index");
     }
 
-    public function dashboard()
+    public function dashboard(): Request
     {
     }
 }
