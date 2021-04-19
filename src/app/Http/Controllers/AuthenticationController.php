@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class AuthenticationController extends Controller
 {
@@ -26,7 +26,7 @@ class AuthenticationController extends Controller
             return redirect()->route("index");
         }
 
-        $user = User::where(["azure_id" => $response->getId()])->first();
+        $user = User::where(["azure_ad_id" => $response->getId()])->first();
 
         // Register the user if needed
         if ($user === null) {
