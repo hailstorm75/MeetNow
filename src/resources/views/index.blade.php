@@ -15,7 +15,7 @@
                 <div class="row h-100">
                     <div class="col">
                         <div class="d-flex align-items-center justify-content-center h-100">
-                            <a class="btn btn-primary btn-lg active w-100 mb-3" role="button" aria-pressed="true">
+                            <a href="{{ route("login")  }}" class="btn btn-primary btn-lg active w-100 mb-3" role="button" aria-pressed="true">
                                 <i class="fa fa-windows mr-2 d-none d-sm-inline"></i>
                                 Login<span class="d-none d-lg-inline"> with Azure</span>
                             </a>
