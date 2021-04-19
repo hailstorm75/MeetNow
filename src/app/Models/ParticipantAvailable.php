@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int state
+ */
 class ParticipantAvailable extends Model
 {
     use HasFactory;
@@ -14,7 +17,8 @@ class ParticipantAvailable extends Model
         "state"
     ];
 
-    public function getState() {
+    public function getState(): int
+    {
         return $this->state;
     }
 

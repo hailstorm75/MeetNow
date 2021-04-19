@@ -7,22 +7,33 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property string id
+ * @property string title
+ * @property string description
+ */
 class Event extends Model
 {
     use HasFactory;
 
     protected $keyType = 'string';
-    public $incrementing = true;
     protected $fillable = [
         "title",
         "description"
     ];
 
-    public function getTitle() {
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getTitle(): string
+    {
         return $this->title;
     }
 
-    public function getDescription() {
+    public function getDescription(): string
+    {
         return $this->description;
     }
 

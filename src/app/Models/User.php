@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
+ * @property-read string name
+ * @property-read string email
  * @method static Builder where(array $array)
  */
 class User extends Authenticatable
