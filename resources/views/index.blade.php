@@ -16,8 +16,8 @@
                     <div class="col">
                         <div class="d-flex align-items-center justify-content-center h-100">
                             <a href="{{ route("login")  }}" class="btn btn-primary btn-lg active w-100 mb-3" role="button" aria-pressed="true">
-                                <i class="fa fa-windows mr-2 d-none d-sm-inline"></i>
-                                Login<span class="d-none d-lg-inline"> with Azure</span>
+                                <i class="fa fa-github-alt mr-2 d-none d-sm-inline"></i>
+                                Login<span class="d-none d-lg-inline"> with GitHub</span>
                             </a>
                         </div>
                     </div>
