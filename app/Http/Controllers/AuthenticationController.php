@@ -15,25 +15,25 @@ class AuthenticationController extends Controller
             return redirect()->route("homepage");
         }
 
-        return Socialite::driver("azure")->redirect();
+        return Socialite::driver("github")->redirect();
     }
 
     public function callback(): RedirectResponse
     {
-        $response = Socialite::driver("azure")->user();
+        $response = Socialite::driver("github")->user();
 
         if ($response === null) {
             return redirect()->route("index");
         }
 
-        $user = User::where(["azure_ad_id" => $response->getId()])->first();
+        $user = User::where(["github_id" => $response->getId()])->first();
 
         // Register the user if needed
         if ($user === null) {
             $user = new User([
                 "name" => $response->getName(),
                 "email" => $response->getEmail(),
-                "azure_ad_id" => $response->getId()
+                "github_id" => $response->getId()
             ]);
 
             $user->save();

@@ -25,7 +25,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'azure_ad_id',
+        'github_id',
     ];
 
     public function getName() {

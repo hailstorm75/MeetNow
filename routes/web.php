@@ -18,3 +18,6 @@
     Route::get('/', [DashboardController::class, 'index']);
     Route::get('/dashboard', [DashboardController::class, "dashboard"])->name("dashboard");
     Route::get("/login", [AuthenticationController::class, "login"])->name("login");
+
+    Route::get('/login', [AuthenticationController::class, "login"]);
+    Route::get('/login/callback', [AuthenticationController::class, "callback"]);

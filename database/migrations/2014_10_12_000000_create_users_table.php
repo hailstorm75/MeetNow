@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('azure_ad_id')->unique();
+            $table->string('github_id')->unique();
             $table->rememberToken();
             $table->timestamps();
         });
