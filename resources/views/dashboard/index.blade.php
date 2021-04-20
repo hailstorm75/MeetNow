@@ -12,14 +12,31 @@
                     <h2>My events</h2>
                 </div>
                 <div class="card-body">
-                    <div class="text-center">
-                        <h3>
-                            <i class="fa fa-frown-o" aria-hidden="true"></i>
-                        </h3>
-                        <span>
-                            You haven't created any events
-                        </span>
-                    </div>
+                    @if(isset($myEvents))
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Event</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($event as $myEvents)
+                                    <tr>
+                                        <td>{{ $event->getTitle()  }}</td>
+                                        <td> Something </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <div class="text-center">
+                            <h3>
+                                <i class="fa fa-frown-o" aria-hidden="true"></i>
+                            </h3>
+                            <span>You haven't created any events</span>
+                        </div>
+                    @endif
                 </div>
                 <div class="card-footer">
                     <button type="button" class="mt-3 btn btn-primary">
@@ -35,14 +52,31 @@
                     <h2>Joined events</h2>
                 </div>
                 <div class="card-body">
-                    <div class="text-center">
-                        <h3>
-                            <i class="fa fa-frown-o" aria-hidden="true"></i>
-                        </h3>
-                        <span>
-                            You haven't joined any events
-                        </span>
-                    </div>
+                    @if(isset($participatedEvents))
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Event</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($event as $participatedEvents)
+                                <tr>
+                                    <td>{{ $event->getTitle()  }}</td>
+                                    <td> Something </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <div class="text-center">
+                            <h3>
+                                <i class="fa fa-frown-o" aria-hidden="true"></i>
+                            </h3>
+                            <span>You haven't joined any events</span>
+                        </div>
+                    @endif
                 </div>
                 <div class="card-footer pt-0">
                     <form class="mb-1">
@@ -50,7 +84,9 @@
                             <div class="col">
                                 <div class="form-group mb-0">
                                     <label for="tbx_event_code" class="bmd-label-floating">Event code</label>
-                                    <input type="text" required maxlength="36" minlength="36" pattern="[A-Za-z0-9]{8}-([A-Za-z0-9]{4}-){3}[A-Za-z0-9]{12}" class="form-control" id="tbx_event_code">
+                                    <input type="text" required maxlength="36" minlength="36"
+                                           pattern="[A-Za-z0-9]{8}-([A-Za-z0-9]{4}-){3}[A-Za-z0-9]{12}"
+                                           class="form-control" id="tbx_event_code">
                                 </div>
                             </div>
                             <div class="col-sm-auto">
