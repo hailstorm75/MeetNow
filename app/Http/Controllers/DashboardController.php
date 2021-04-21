@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
+use App\Models\EventParticipant;
 use Illuminate;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -24,19 +26,24 @@ class DashboardController extends Controller
 
     public function dashboard(): Response
     {
-        $myEvents = $this
-            ->getUser()
-            ->createdEvents()
-            ->get();
-        $participatedEvents = $this
-            ->getUser()
-            ->participatedEvents()
-            ->where("owner", "!=", $this->getUser()->getId())
-            ->get();
+        $myEvents =
+            Event::where("owner_id", "=", $this->getUser()->getId())
+                ->get();
+        $participatedEvents =
+            EventParticipant::where("participant_id", "=", $this->getUser()->getId())
+                ->leftJoin("events", "event_participants.event_id", "events.id")
+                ->where("events.owner_id", "!=", $this->getUser()->getId())
+                ->select("event.id", "events.owner_id", "event.title", "event.description")
+                ->get();
 
         return response()->view('dashboard.index', [
             "myEvents" => $myEvents,
             "participatedEvents" => $participatedEvents
         ]);
+    }
+
+    public function create(): Response
+    {
+        return response()->view('events.create');
     }
 }
