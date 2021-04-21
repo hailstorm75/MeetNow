@@ -24,8 +24,15 @@ class DashboardController extends Controller
 
     public function dashboard(): Response
     {
-        $myEvents = $this->getUser()->createdEvents()->get();
-        $participatedEvents = $this->getUser()->participatedEvents()->get();
+        $myEvents = $this
+            ->getUser()
+            ->createdEvents()
+            ->get();
+        $participatedEvents = $this
+            ->getUser()
+            ->participatedEvents()
+            ->where("owner", "!=", $this->getUser()->getId())
+            ->get();
 
         return response()->view('dashboard.index', [
             "myEvents" => $myEvents,
