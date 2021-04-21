@@ -16,12 +16,12 @@
     |
     */
 
-    Route::get('/', [DashboardController::class, 'index']);
+    Route::get('/', [DashboardController::class, 'index'])->name("index");
+    Route::get('/login', [AuthenticationController::class, "login"]);
+    Route::get('/login/callback', [AuthenticationController::class, "callback"]);
 
     Route::middleware("auth")->group(function () {
         Route::get('/dashboard', [DashboardController::class, "dashboard"])->name("dashboard");
     });
-    Route::resource('/events', EventController::class)->except("index");
 
-    Route::get('/login', [AuthenticationController::class, "login"]);
-    Route::get('/login/callback', [AuthenticationController::class, "callback"]);
+    Route::resource('/events', EventController::class)->except("index");
