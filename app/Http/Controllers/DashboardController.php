@@ -27,7 +27,7 @@ class DashboardController extends Controller
     public function dashboard(): Response
     {
         $myEvents =
-            Event::where("owner_id", "=", $this->getUser()->getId())
+            Event::where("owner_id", $this->getUser()->getId())
                 ->get();
         $participatedEvents =
             EventParticipant::where("participant_id", "=", $this->getUser()->getId())
@@ -42,8 +42,4 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function create(): Response
-    {
-        return response()->view('events.create');
-    }
 }

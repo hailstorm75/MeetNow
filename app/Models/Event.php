@@ -12,7 +12,9 @@ use Illuminate\Database\Query\Builder;
  * @property string id
  * @property string title
  * @property string description
- * @method static Builder where($x, $y, $z)
+ * @method static Event create(array $array)
+ * @method static find(string $id)
+ * @method static Builder where(string $string, string $id)
  */
 class Event extends Model
 {
@@ -20,6 +22,7 @@ class Event extends Model
 
     protected $keyType = 'string';
     protected $fillable = [
+        "id",
         "title",
         "description"
     ];

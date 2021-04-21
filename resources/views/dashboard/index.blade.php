@@ -23,8 +23,19 @@
                             <tbody>
                                 @foreach($event as $myEvents)
                                     <tr>
-                                        <td>{{ $event->getTitle()  }}</td>
-                                        <td> Something </td>
+                                        <td>{{ $event->title }}</td>
+                                        <td>
+                                            <a href="events/{{ $event->id }}/edit">
+                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                            </a>
+                                            <form action="/events/{{ $event->id  }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="bg-transparent border-0">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -39,10 +50,10 @@
                     @endif
                 </div>
                 <div class="card-footer">
-                    <button type="button" class="mt-3 btn btn-primary">
+                    <a class="mt-3 btn btn-primary" href="events/create">
                         <i class="fa fa-plus mr-2 d-none d-sm-inline"></i>
                         Create event
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -63,7 +74,7 @@
                             <tbody>
                             @foreach($event as $participatedEvents)
                                 <tr>
-                                    <td>{{ $event->getTitle()  }}</td>
+                                    <td>{{ $event->title  }}</td>
                                     <td> Something </td>
                                 </tr>
                             @endforeach

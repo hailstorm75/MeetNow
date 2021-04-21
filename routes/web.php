@@ -2,6 +2,7 @@
 
     use App\Http\Controllers\AuthenticationController;
     use App\Http\Controllers\DashboardController;
+    use App\Http\Controllers\EventController;
     use Illuminate\Support\Facades\Route;
 
     /*
@@ -16,8 +17,11 @@
     */
 
     Route::get('/', [DashboardController::class, 'index']);
-    Route::get('/dashboard', [DashboardController::class, "dashboard"])->name("dashboard");
-    Route::get("/login", [AuthenticationController::class, "login"])->name("login");
+
+    Route::middleware("auth")->group(function () {
+        Route::get('/dashboard', [DashboardController::class, "dashboard"])->name("dashboard");
+    });
+    Route::resource('/events', EventController::class)->except("index");
 
     Route::get('/login', [AuthenticationController::class, "login"]);
     Route::get('/login/callback', [AuthenticationController::class, "callback"]);
