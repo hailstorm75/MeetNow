@@ -28,6 +28,7 @@ class User extends Authenticatable
         'email',
         'github_id',
     ];
+    protected $timestamps = false;
 
     public function getId(): int {
         return $this->id;

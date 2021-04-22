@@ -20,27 +20,13 @@ class Event extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
     protected $keyType = 'string';
     protected $fillable = [
         "id",
         "title",
         "description"
     ];
-
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
 
     public function owner(): BelongsTo {
         return $this->belongsTo(User::class, "owner_id", "id");
