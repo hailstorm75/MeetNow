@@ -9,10 +9,18 @@ use Illuminate\Database\Query\Builder;
 
 /**
  * @method static Builder where($x, $y, $z)
+ * @property int participant_id
+ * @property string event_id
+ * @property int id
  */
 class EventParticipant extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "participant_id",
+        "event_id"
+    ];
 
     public function participant(): BelongsTo {
         return $this->belongsTo(User::class, "participant_id", "id");

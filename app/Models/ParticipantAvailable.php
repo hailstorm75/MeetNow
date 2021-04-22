@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
+ * @property int participant_id
+ * @property int date_id
  * @property int state
  */
 class ParticipantAvailable extends Model

@@ -9,9 +9,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
- * @property-read int id
- * @property-read string name
- * @property-read string email
+ * @property int id
+ * @property string name
+ * @property string email
  * @method static Builder where(array $array)
  */
 class User extends Authenticatable
@@ -28,7 +28,6 @@ class User extends Authenticatable
         'email',
         'github_id',
     ];
-    protected $timestamps = false;
 
     public function getId(): int {
         return $this->id;

@@ -15,7 +15,7 @@ class CreateParticipantAvailablesTable extends Migration
     {
         Schema::create('participant_availables', function (Blueprint $table) {
             $table->id();
-            $table->integer("participant_id");
+            $table->bigInteger("participant_id")->unsigned();
             $table->foreign("participant_id")->references('id')->on("users");
             $table->integer("date_id");
             $table->integer("state");
