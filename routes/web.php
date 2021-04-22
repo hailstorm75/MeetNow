@@ -17,8 +17,8 @@
     */
 
     Route::get('/', [DashboardController::class, 'index'])->name("index");
-    Route::get('/login', [AuthenticationController::class, "login"]);
-    Route::get('/login/callback', [AuthenticationController::class, "callback"]);
+    Route::get('/login', [AuthenticationController::class, "login"])->name("login");
+    Route::get('/login/callback', [AuthenticationController::class, "callback"])->name("callback");
 
     Route::middleware("auth")->group(function () {
         Route::get('/dashboard', [DashboardController::class, "dashboard"])->name("dashboard");
