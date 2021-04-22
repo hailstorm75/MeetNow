@@ -33,7 +33,7 @@ class DashboardController extends Controller
             EventParticipant::where("participant_id", "=", $this->getUser()->getId())
                 ->leftJoin("events", "event_participants.event_id", "events.id")
                 ->where("events.owner_id", "!=", $this->getUser()->getId())
-                ->select("event.id", "events.owner_id", "event.title", "event.description")
+                ->select("events.id", "events.owner_id", "events.title", "events.description")
                 ->get();
 
         return response()->view('dashboard.index', [
