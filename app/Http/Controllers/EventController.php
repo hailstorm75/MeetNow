@@ -17,6 +17,7 @@ class EventController extends Controller
     {
         Event::create([
             'id' => $this->newGuid(),
+            'owner_id' => $this->getUser()->id,
             'title' => $request->input('title'),
             'description' => $request->input('description')
         ]);

@@ -22,9 +22,11 @@ class Event extends Model
 
     public $incrementing = false;
     protected $keyType = 'string';
+    protected $primaryKey = "id";
     protected $fillable = [
         "id",
         "title",
+        "owner_id",
         "description"
     ];
 

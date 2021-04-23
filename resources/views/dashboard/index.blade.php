@@ -21,7 +21,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($event as $myEvents)
+                                @foreach($myEvents as $event)
                                     <tr>
                                         <td>{{ $event->title }}</td>
                                         <td>
@@ -72,7 +72,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($event as $participatedEvents)
+                            @foreach($participatedEvents as $event)
                                 <tr>
                                     <td>{{ $event->title  }}</td>
                                     <td> Something </td>
