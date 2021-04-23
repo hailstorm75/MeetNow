@@ -16,22 +16,31 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">Event</th>
-                                    <th scope="col"></th>
+                                    <th style="width: 100%">Event</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($myEvents as $event)
                                     <tr>
-                                        <td>{{ $event->title }}</td>
+                                        <td class="align-middle">{{ $event->title }}</td>
                                         <td>
-                                            <a href="events/{{ $event->id }}/edit">
+                                            <button onclick="window.location.href='events/{{ $event->id }}/edit';" class="btn btn-secondary bmd-btn-fab bmd-btn-fab-sm mb-0">
                                                 <i class="fa fa-pencil" aria-hidden="true"></i>
-                                            </a>
-                                            <form action="/events/{{ $event->id  }}" method="POST">
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info bmd-btn-fab bmd-btn-fab-sm mb-0">
+                                                <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <form action="/events/{{ $event->id  }}" method="POST" class="mb-0">
                                                 @csrf
                                                 @method('delete')
-                                                <button type="submit" class="bg-transparent border-0">
+                                                <button type="submit" class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm mb-0">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
                                             </form>
