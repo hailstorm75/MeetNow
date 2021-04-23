@@ -3,10 +3,12 @@
 @else
     <div class="row">
         <div class="col">
-            <img src="https://www.gravatar.com/avatar/{{ md5(auth()->user()->getEmail()) }}?s=128&d=mm&r=g" class="w-15 h-15 rounded-full" alt="profile">
+            <img src="https://www.gravatar.com/avatar/{{ md5(auth()->user()->getEmail()) }}?s=128&d=mm&r=g" class="rounded-full" style="width: 32px" alt="profile">
         </div>
-        <div class="col">
-            <span class="font-bold">{{ auth()->user()->getName() }}</span>
+        <div class="col-auto d-flex align-items-center pl-0">
+{{--            <div class="row align-items-center">--}}
+                {{ auth()->user()->getName() }}
+{{--            </div>--}}
         </div>
     </div>
 @endif
