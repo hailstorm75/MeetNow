@@ -1,14 +1,12 @@
 @if(!Illuminate\Support\Facades\Auth::check())
-    <a href="{{ route("login")  }}">Login</a>
+    <a href="{{ route("login") }}">Login</a>
 @else
     <div class="row">
         <div class="col">
             <img src="https://www.gravatar.com/avatar/{{ md5(auth()->user()->getEmail()) }}?s=128&d=mm&r=g" class="rounded-full" style="width: 32px" alt="profile">
         </div>
         <div class="col-auto d-flex align-items-center pl-0">
-{{--            <div class="row align-items-center">--}}
-                {{ auth()->user()->getName() }}
-{{--            </div>--}}
+            {{ auth()->user()->name }}
         </div>
     </div>
 @endif
