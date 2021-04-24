@@ -18,7 +18,7 @@ class CreateEventParticipantsTable extends Migration
             $table->bigInteger("participant_id")->unsigned();
             $table->foreign("participant_id")->references('id')->on("users");
             $table->string("event_id");
-            $table->foreign("event_id")->references("id")->on("events");
+            $table->foreign("event_id")->references("id")->on("events")->onDelete("cascade");
             $table->timestamps();
         });
     }
