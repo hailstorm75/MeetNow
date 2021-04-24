@@ -53,7 +53,7 @@ class EventController extends Controller
 
     public function edit(string $id)
     {
-        $event = Event::find($id)->first();
+        $event = Event::where("id", $id)->first();
 
         return view('events.edit')->with('event', $event);
     }
