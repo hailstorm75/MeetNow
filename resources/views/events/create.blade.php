@@ -10,22 +10,24 @@
 @endsection
 
 @section('eventName')
-    <div class="form-group mb-0">
-        <label for="tbx_eventName" class="bmd-label-floating">Title</label>
-        <input type="text" class="form-control" id="tbx_eventName" name="title"/>
+    <div class="col-auto">
+        <div class="form-group mb-0">
+            <label for="tbx_eventName" class="bmd-label-floating">Title</label>
+            <input type="text" required class="form-control" id="tbx_eventName" name="title" maxlength="26" minlength="3"/>
+        </div>
     </div>
-@endsection
-
-@section('contentSub')
-    <div>
-        <a href="/dashboard">Cancel</a>
-    </div>
-    <div>
-        <button class="btn btn-primary" type="submit">
+    <div class="col-auto mt-4">
+        <button class="btn btn-raised btn-primary" type="submit">
             Create
         </button>
     </div>
+    <div class="col-auto mt-4">
+        <a class="btn btn-raised btn-danger" href="/dashboard">
+            Cancel
+        </a>
+    </div>
 @endsection
+
 @section('contentDesc')
     <textarea class="form-control" id="tbx_eventDescription" name="description"></textarea>
 @endsection
