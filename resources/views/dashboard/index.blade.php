@@ -6,7 +6,7 @@
 
 @section("content")
     <div class="row ml-3 mr-3">
-        <div class="col mr-3">
+        <div class="col mr-sm-3">
             <div class="card">
                 <div class="card-header">
                     <h2>My events</h2>
@@ -15,38 +15,40 @@
                     @if(isset($myEvents))
                         <table class="table table-hover">
                             <thead>
-                                <tr>
-                                    <th style="width: 100%">Event</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
+                            <tr>
+                                <th style="width: 100%">Event</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @foreach($myEvents as $event)
-                                    <tr>
-                                        <td class="align-middle">{{ $event->title }}</td>
-                                        <td>
-                                            <button onclick="window.location.href='events/{{ $event->id }}/edit';" class="btn btn-secondary bmd-btn-fab bmd-btn-fab-sm mb-0">
-                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            @foreach($myEvents as $event)
+                                <tr>
+                                    <td class="align-middle" onclick="window.location.href='events/{{ $event->id }}';" style="cursor: pointer">{{ $event->title }}</td>
+                                    <td>
+                                        <button onclick="window.location.href='events/{{ $event->id }}/edit';"
+                                                class="btn btn-secondary bmd-btn-fab bmd-btn-fab-sm mb-0">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-info bmd-btn-fab bmd-btn-fab-sm mb-0" value="sdf">
+                                            <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <form action="/events/{{ $event->id }}" method="POST" class="mb-0">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit"
+                                                    class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm mb-0">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
                                             </button>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-info bmd-btn-fab bmd-btn-fab-sm mb-0">
-                                                <i class="fa fa-share-alt" aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <form action="/events/{{ $event->id  }}" method="POST" class="mb-0">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm mb-0">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     @else
@@ -66,7 +68,7 @@
                 </div>
             </div>
         </div>
-        <div class="col ml-3">
+        <div class="col ml-sm-3">
             <div class="card">
                 <div class="card-header">
                     <h2>Joined events</h2>
@@ -83,8 +85,8 @@
                             <tbody>
                             @foreach($participatedEvents as $event)
                                 <tr>
-                                    <td>{{ $event->title  }}</td>
-                                    <td> Something </td>
+                                    <td>{{ $event->title }}</td>
+                                    <td> Something</td>
                                 </tr>
                             @endforeach
                             </tbody>

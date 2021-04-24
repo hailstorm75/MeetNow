@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder;
 
 /**
- * @method static Builder where($x, $y, $z)
+ * @method static Builder where(string $string, string $id)
+ * @method static create(array $array)
  * @property int participant_id
  * @property string event_id
  * @property int id

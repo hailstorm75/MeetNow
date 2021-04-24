@@ -1,31 +1,36 @@
-@extends('layouts.mainLayout')
+@extends('events.eventLayout')
 
 @section('title')
-New event
+    Edit event
 @endsection
 
-@section('content')
+@section('formStart')
+    <form action="/events/{{ $event->id }}" method="POST">
+        @csrf
+        @method('PUT')
+@endsection
 
-<form action="/events/{{ $event->id }}" method="POST">
-    @csrf
-    @method('PUT')
-    <div class="col">
-        <div class="row">
-            <label for="tbx_eventName" class="bmd-label-floating">Title</label>
-            <input type="text" class="form-control" id="tbx_eventName" name="title" value="{{ $event->title  }}"/>
-        </div>
-        <div class="row">
-            <label for="tbx_eventDescription" class="bmd-label-floating">Description</label>
-            <textarea class="form-control" id="tbx_eventDescription" name="description">
-                {{ $event->description  }}
-            </textarea>
-        </div>
-        <div class="row">
-            <button class="btn btn-primary" type="submit">
-                Create
-            </button>
-        </div>
+@section('eventName')
+<div class="form-group mb-0">
+    <label for="tbx_eventName" class="bmd-label-floating">Title</label>
+    <input type="text" class="form-control" id="tbx_eventName" name="title" value="{{ $event->title  }}"/>
+</div>
+@endsection
+
+@section('contentSub')
+    <div>
+        <a href="/dashboard">Cancel</a>
     </div>
-</form>
-
+    <div>
+        <button class="btn btn-primary" type="submit">
+            Save
+        </button>
+    </div>
+@endsection
+@section('contentDesc')
+    <textarea class="form-control" id="tbx_eventDescription"
+              name="description">{{ $event->description  }}</textarea>
+@endsection
+@section('formEnd')
+    </form>
 @endsection

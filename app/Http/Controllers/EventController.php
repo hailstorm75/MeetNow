@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\EventParticipant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -11,6 +12,24 @@ class EventController extends Controller
     public function create(): Response
     {
         return response()->view('events.create');
+    }
+
+    public function join(string $id)
+    {
+        $userId = $this->getUser()->id;
+
+        if (EventParticipant::where("participant_id", $userId)->exists()
+        || Event::where('id', $id)->where('owner_id', $userId)->exists())
+        {
+            return redirect("/events/" . $id);
+        }
+
+        EventParticipant::create([
+            "participant_id" => $userId,
+            "event_id" => $id
+        ]);
+
+        return redirect("/events/" . $id);
     }
 
     public function store(Request $request)
@@ -50,9 +69,11 @@ class EventController extends Controller
         return redirect('/dashboard');
     }
 
-    public function show($id): Response
+    public function show(string $id)
     {
+        $event = Event::where('id', $id)->first();
 
+        return view('events.show')->with("event", $event);
     }
 
     private function newGuid(): string

@@ -24,4 +24,5 @@
         Route::get('/dashboard', [DashboardController::class, "dashboard"])->name("dashboard");
     });
 
+    Route::get('/events/{id}/join', [EventController::class, "join"])->name("join");
     Route::resource('/events', EventController::class)->except("index");
