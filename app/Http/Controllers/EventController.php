@@ -41,7 +41,7 @@ class EventController extends Controller
             'id' => $eventId,
             'owner_id' => $userId,
             'title' => $request->input('title'),
-            'description' => $request->input('description')
+            'description' => $request->input('description') ?? ""
         ]);
         EventParticipant::create([
             "participant_id" => $userId,
