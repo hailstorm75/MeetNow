@@ -11,6 +11,10 @@
             <div class="row ml-4">
                 @yield('contentSub')
             </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
             <div class="row ml-4">
                 @yield('contentEvent')
             </div>

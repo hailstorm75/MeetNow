@@ -34,7 +34,7 @@
 @endsection
 
 @section("contentEvent")
-    <div class="col mt-4 pl-0">
+    <div class="col pl-0">
         <div class="row">
             <div class="col-auto">
                 <div class="card">
