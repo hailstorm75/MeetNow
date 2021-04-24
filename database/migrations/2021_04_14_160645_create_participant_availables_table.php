@@ -17,7 +17,8 @@ class CreateParticipantAvailablesTable extends Migration
             $table->id();
             $table->bigInteger("participant_id")->unsigned();
             $table->foreign("participant_id")->references('id')->on("users");
-            $table->integer("date_id");
+            $table->bigInteger("date_id")->unsigned();
+            $table->foreign("date_id")->references("id")->on("dates");
             $table->integer("state");
             $table->timestamps();
         });
