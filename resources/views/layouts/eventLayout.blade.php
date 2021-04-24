@@ -11,6 +11,9 @@
             <div class="row ml-4">
                 @yield('contentSub')
             </div>
+            <div class="row ml-4">
+                @yield('contentEvent')
+            </div>
         </div>
         <div class="col-sm-3 mr-sm-4">
             <div class="card">
@@ -25,6 +28,7 @@
             </div>
         </div>
     </div>
+
     @yield('formEnd')
 
 @endsection

@@ -16,6 +16,8 @@ class CreateDatesTable extends Migration
         Schema::create('dates', function (Blueprint $table) {
             $table->id();
             $table->dateTime("datetime");
+            $table->string("event_id", 36);
+            $table->foreign("event_id")->references("id")->on("events");
             $table->timestamps();
         });
     }

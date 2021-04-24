@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Date;
 use App\Models\Event;
 use App\Models\EventParticipant;
+use App\Models\ParticipantAvailable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -79,8 +81,19 @@ class EventController extends Controller
     public function show(string $id)
     {
         $event = Event::where('id', $id)->first();
+        $dates = Date::where("event_id", $id)->get();
+        $participants = EventParticipant::where("event_id", $id)
+            ->leftJoin("participant_availables", "participant_availables.participant_id", "=", "event_participants.participant_id")
+            ->leftJoin("users", "users.id", "=", "event_participants.participant_id")
+            ->orderBy("users.id")
+            ->select("users.name AS name", "participant_availables.state AS state", "participant_availables.date_id AS date_id")
+            ->get();
 
-        return view('events.show')->with("event", $event);
+        return view('events.show')->with([
+            "event" => $event,
+            "dates" => $dates,
+            "participants" => $participants
+        ]);
     }
 
     private function newGuid(): string

@@ -10,22 +10,19 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property datetime datetime
+ * @method static where(string $string, string $id)
  */
 class Date extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        "datetime"
+        "datetime",
+        "event_id"
     ];
 
-    public function getDatetime(): DateTime
-    {
-        return $this->datetime;
-    }
-
     public function event(): BelongsTo {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(Event::class, "event_id", "id");
     }
 
     public function dateParticipants(): HasMany {
