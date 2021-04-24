@@ -34,11 +34,18 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
+        $eventId = $this->newGuid();
+        $userId = $this->getUser()->id;
+
         Event::create([
-            'id' => $this->newGuid(),
-            'owner_id' => $this->getUser()->id,
+            'id' => $eventId,
+            'owner_id' => $userId,
             'title' => $request->input('title'),
             'description' => $request->input('description')
+        ]);
+        EventParticipant::create([
+            "participant_id" => $userId,
+            "event_id" => $eventId
         ]);
 
         return redirect("/dashboard");
