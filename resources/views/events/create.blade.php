@@ -1,4 +1,4 @@
-@extends('events.eventLayout')
+@extends('layouts.eventLayout')
 
 @section('title')
     New event
