@@ -12,7 +12,7 @@
 
 @section('eventName')
     <div class="row w-100">
-        <div class="col-auto">
+        <div class="col-2">
             <div class="form-group mb-0">
                 <label for="tbx_eventName" class="bmd-label-floating">Title</label>
                 <input type="text" required class="form-control" id="tbx_eventName" name="title" maxlength="26"
@@ -39,7 +39,7 @@
 @section("contentEvent")
     <div class="col pl-0">
         <div class="row">
-            <div class="col-auto">
+            <div class="col-2">
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group">
@@ -53,8 +53,8 @@
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-primary w-100">
-                            <i class="fa fa-plus mr-1" aria-hidden="true"></i>
-                            New date
+                            <i class="fa fa-plus mr-lg-1" aria-hidden="true"></i>
+                            <span class="d-none d-lg-inline">New date</span>
                         </button>
                     </div>
                 </div>

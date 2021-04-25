@@ -12,6 +12,9 @@
                 @yield('contentSub')
             </div>
         </div>
+        <div class="col-sm-3 mr-sm-4">
+
+        </div>
     </div>
     <div class="row mt-4">
         <div class="col">
