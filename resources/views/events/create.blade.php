@@ -4,10 +4,14 @@
     New event
 @endsection
 
-@section('eventName')
+@section('formStart')
 <form action="/events" method="POST" id="saveForm">
     @csrf
-    <div class="row">
+</form>
+@endsection
+
+@section('eventName')
+    <div class="row w-100">
         <div class="col-auto">
             <div class="form-group mb-0">
                 <label for="tbx_eventName" class="bmd-label-floating">Title</label>
@@ -26,7 +30,6 @@
             </a>
         </div>
     </div>
-</form>
 @endsection
 
 @section('contentDesc')
@@ -53,6 +56,16 @@
                             <i class="fa fa-plus mr-1" aria-hidden="true"></i>
                             New date
                         </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        Dates
+                    </div>
+                    <div class="card-body">
+                        <em>TODO: Display added dates here</em>
                     </div>
                 </div>
             </div>
