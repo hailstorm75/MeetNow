@@ -5,15 +5,30 @@
 @endsection
 
 @section('formStart')
-    <form action="/events" method="POST" id="frm_saveForm">
+    <form onsubmit="submitForm()" method="POST" id="frm_saveForm">
         @csrf
     </form>
     <form id="frm_date" onsubmit="onAddDateClicked()" method="POST">
     </form>
     <script>
-        const form = document.getElementById('frm_date');
+        const forms = document.getElementsByTagName("form");
         function handleForm(event) {event.preventDefault()}
-        form.addEventListener('submit', handleForm)
+        forms[0].addEventListener('submit', handleForm)
+        forms[1].addEventListener('submit', handleForm)
+
+        function submitForm () {
+            $.ajax({
+                url: '/events',
+                type: 'POST',
+                dataType: "json",
+                data : {
+                    "_token": "{{ csrf_token() }}",
+                    "title": document.getElementById("tbx_eventName").value,
+                    "description": document.getElementById("tbx_eventDescription").value,
+                    "dates": JSON.stringify(dates, null, 2)
+                }
+            });
+        }
     </script>
 @endsection
 
@@ -27,7 +42,7 @@
             </div>
         </div>
         <div class="col-auto mt-4">
-            <button class="btn btn-raised btn-primary" type="submit" form="saveForm">
+            <button class="btn btn-raised btn-primary" type="submit" form="frm_saveForm">
                 Create
             </button>
         </div>
@@ -45,7 +60,7 @@
 
 @section("contentEvent")
     <script>
-        class Date {
+        class MyDate {
             date;
             time;
             id;
@@ -78,13 +93,11 @@
             const id = createUUID();
             const date = document.getElementById("date").value;
             const time = document.getElementById("time").value;
-            const newDate = new Date(id, date, time);
+            const newDate = new MyDate(id, date, time);
 
             const existingDates = dates.filter(function (e) {
                 return e.date === date && e.time === time;
             })
-
-            console.log(existingDates);
 
             if (existingDates.length > 0) {
                 alert("Please select a date that isn't created yet")
@@ -102,7 +115,6 @@
             c.innerHTML = "<button class='btn' onclick='onDeleteDateClicked(\"" + id + "\")'>Delete</button>"
 
             dates.push(newDate);
-            console.log(dates);
         }
 
         function onDeleteDateClicked(id) {
