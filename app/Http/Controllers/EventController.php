@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Date;
 use App\Models\Event;
 use App\Models\EventParticipant;
-use App\Models\ParticipantAvailable;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -69,17 +68,21 @@ class EventController extends Controller
     public function edit(string $id)
     {
         $event = Event::where("id", $id)->first();
+        $dates = Date::where("event_id", $id)->get();
 
-        return view('events.edit')->with('event', $event);
+        return view('events.edit')->with([
+            'event' => $event,
+            'dates' => $dates,
+        ]);
     }
 
     public function update(Request $request, string $id)
     {
         Event::where('id', $id)
             ->update([
-            'title' => $request->input('title'),
-            'description' => $request->input('description')
-        ]);
+                'title' => $request->input('title'),
+                'description' => $request->input('description')
+            ]);
 
         return redirect('/dashboard');
     }
