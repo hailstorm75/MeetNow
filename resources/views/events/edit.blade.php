@@ -60,9 +60,10 @@
 @section("contentEvent")
     <script>
         class MyDate {
+            id;
+            dbId;
             date;
             time;
-            id;
 
             get date() {
                 return this.date;
@@ -72,10 +73,15 @@
                 return this.time;
             }
 
-            constructor(id, date, time) {
+            get dbId() {
+                return this.dbId;
+            }
+
+            constructor(id, dbId, date, time) {
                 this.id = id;
                 this.date = date;
                 this.time = time;
+                this.dbId = dbId;
             }
         }
 
@@ -88,9 +94,9 @@
             });
         }
 
-        function onAddDateClickedEx(date, time) {
+        function onAddDateClickedEx(dbId, date, time) {
             const id = createUUID();
-            const newDate = new MyDate(id, date, time);
+            const newDate = new MyDate(id, dbId, date, time);
             const newRow = document.getElementById("tbl_date").insertRow(0);
             newRow.id = id;
 
@@ -117,12 +123,18 @@
                 return;
             }
 
-            onAddDateClickedEx(date, time);
+            onAddDateClickedEx("", date, time);
         }
 
         function onDeleteDateClicked(id) {
-            const row = document.getElementById(id).rowIndex
-            document.getElementById("tbl_date").deleteRow(row - 1)
+            const row = document.getElementById(id).rowIndex - 1
+            document.getElementById("tbl_date").deleteRow(row)
+
+            const item = dates.findIndex(function (date) {
+                return date.id === id;
+            })
+
+            dates.splice(item, 1);
         }
 
     </script>
@@ -173,7 +185,7 @@
     </div>
     <script>
         @foreach ($dates as $date)
-            onAddDateClickedEx('{{ explode(" ", $date->datetime)[0] }}', '{{ explode(" ", $date->datetime)[1] }}')
+            onAddDateClickedEx('{{ $date->id }}', '{{ explode(" ", $date->datetime)[0] }}', '{{ explode(" ", $date->datetime)[1] }}')
         @endforeach
     </script>
 @endsection

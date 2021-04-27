@@ -119,8 +119,14 @@
         }
 
         function onDeleteDateClicked(id) {
-            const row = document.getElementById(id).rowIndex
-            document.getElementById("tbl_date").deleteRow(row - 1)
+            const row = document.getElementById(id).rowIndex - 1
+            document.getElementById("tbl_date").deleteRow(row)
+
+            const item = dates.findIndex(function (date) {
+                return date.id === id;
+            })
+
+            dates.splice(item, 1);
         }
     </script>
     <div class="col pl-0">

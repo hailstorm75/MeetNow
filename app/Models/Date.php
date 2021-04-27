@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property datetime datetime
  * @method static where(string $string, string $id)
  * @method static create(string[] $array)
+ * @method static find(mixed $date)
  */
 class Date extends Model
 {
