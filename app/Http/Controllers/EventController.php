@@ -6,6 +6,7 @@ use App\Models\Date;
 use App\Models\Event;
 use App\Models\EventParticipant;
 use App\Models\ParticipantAvailable;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -34,6 +35,10 @@ class EventController extends Controller
         return redirect("/events/" . $id);
     }
 
+    /**
+     * @throws \JsonException
+     * @throws \Exception
+     */
     public function store(Request $request)
     {
         $eventId = $this->newGuid();
@@ -44,11 +49,19 @@ class EventController extends Controller
             'owner_id' => $userId,
             'title' => $request->input('title'),
             'description' => $request->input('description') ?? ""
-        ]);
+        ])->save();
         EventParticipant::create([
             "participant_id" => $userId,
             "event_id" => $eventId
-        ]);
+        ])->save();
+
+        $dates = json_decode($request->input('dates'));
+        foreach ($dates as $date) {
+            Date::create([
+                "event_id" => $eventId,
+                "datetime" => new DateTime($date->date . " " . $date->time)
+            ])->save();
+        }
 
         return redirect("/dashboard");
     }

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property datetime datetime
  * @method static where(string $string, string $id)
+ * @method static create(string[] $array)
  */
 class Date extends Model
 {

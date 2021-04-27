@@ -26,7 +26,8 @@
                     "title": document.getElementById("tbx_eventName").value,
                     "description": document.getElementById("tbx_eventDescription").value,
                     "dates": JSON.stringify(dates, null, 2)
-                }
+                },
+                success: window.location.replace("/dashboard")
             });
         }
     </script>
