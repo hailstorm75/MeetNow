@@ -30,7 +30,11 @@
                     <tr>
                         <th>Participant</th>
                         @foreach($dates as $date)
-                            <th>{{ $date->datetime }}</th>
+                            <th class="text-center">
+                                {{ str_replace("-", "/", explode(" ", $date->datetime)[0]) }}
+                                <br>
+                                {{ explode(" ", $date->datetime)[1] }}
+                            </th>
                         @endforeach
                     </tr>
                     </thead>
