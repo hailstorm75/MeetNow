@@ -19,6 +19,34 @@
 @endsection
 
 @section('contentEvent')
+    <script>
+        function ts(cb) {
+            if (cb.readOnly)
+                cb.checked=cb.readOnly=false;
+            else if (!cb.checked)
+                cb.readOnly=cb.indeterminate=true;
+
+            const state = cb.checked
+                ? 1
+                : cb.indeterminate
+                    ? 0
+                    : -1;
+            const ids = cb.id.split(":");
+
+
+            $.ajax({
+                url: '/events/{{ $event->id }}/participate',
+                type: 'POST',
+                dataType: "json",
+                data : {
+                    "_token": "{{ csrf_token() }}",
+                    "state": state,
+                    "participant_id": ids[0],
+                    "date_id": ids[1]
+                },
+            });
+        }
+    </script>
     <div class="col pl-0">
         <div class="card">
             <div class="card-header">
@@ -39,13 +67,24 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($participants->groupBy('name') as $key => $participant)
+                    @foreach($participants->groupBy('name') as $key => $participantGroup)
                         <tr>
                             <td class="row">{{ $key }}</td>
                             @foreach($dates as $date)
-                                <td>
-
-                                </td>
+                                @foreach($participantGroup as $participant)
+                                    <td class="text-center">
+                                        <input type="checkbox" id="{{ $participant->user_id }}:{{ $date->id }}" onclick="ts(this)" />
+                                        @if (isset($participant->state))
+                                            <script>
+                                                @if ($participant->state === 0)
+                                                    $("#{{ $participant->user_id }}:{{ $date->id }}").prop("indeterminate", true).submit();
+                                                @elseif ($participant->state === 1)
+                                                    $("#{{ $participant->user_id }}:{{ $date->id }}").prop("checked", true).submit();
+                                                @endif
+                                            </script>
+                                        @endif
+                                    </td>
+                                @endforeach
                             @endforeach
                         </tr>
                     @endforeach
