@@ -151,7 +151,7 @@
 
         public function participate(Request $request, string $eventId)
         {
-            if ($this->getUser()->id !== $request->input("participant_id"))
+            if ((int)$request->input("participant_id") !== $this->getUser()->id)
             {
                 return redirect("/events/" . $eventId);
             }
