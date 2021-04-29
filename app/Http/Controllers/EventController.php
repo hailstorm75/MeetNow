@@ -5,6 +5,7 @@
     use App\Models\Date;
     use App\Models\Event;
     use App\Models\EventParticipant;
+    use App\Models\ParticipantAvailable;
     use DateTime;
     use Illuminate\Http\Request;
     use Illuminate\Http\Response;
@@ -92,20 +93,7 @@
                 ]);
 
             $dates = json_decode($request->input('dates'));
-            error_log(print_r($dates, TRUE));
-
             $existingDates = Date::where("event_id", $eventId)->pluck("id");
-            error_log(print_r($existingDates, TRUE));
-
-            $temp = from($dates)
-                ->select(function ($x) {
-                    return $x->dbId;
-                })
-                ->where(function (string $x) {
-                    return $x !== "";
-                })->toArrayDeep();
-            error_log(print_r($temp, TRUE));
-
             $datesToDelete = from($existingDates)
                 ->except(from($dates)
                     ->select(function ($x) {
@@ -115,14 +103,11 @@
                         return $x !== "";
                     }))
                 ->toArrayDeep();
-            error_log(print_r($datesToDelete, TRUE));
-
             $datesToAdd = from($dates)
                 ->where(function ($x) {
                     return $x->dbId === "";
                 })
                 ->toArrayDeep();
-            error_log(print_r($datesToAdd, TRUE));
 
             foreach ($datesToDelete as $date) {
                 Date::where("id", $date)->first()->delete();
@@ -153,7 +138,7 @@
                 ->leftJoin("participant_availables", "participant_availables.participant_id", "=", "event_participants.participant_id")
                 ->leftJoin("users", "users.id", "=", "event_participants.participant_id")
                 ->orderBy("users.id")
-                ->select("users.name AS name", "participant_availables.state AS state", "participant_availables.date_id AS date_id")
+                ->select("users.name AS name", "users.id AS user_id", "participant_availables.state AS state", "participant_availables.date_id AS date_id")
                 ->get();
 
             return view('events.show')->with([
@@ -161,5 +146,29 @@
                 "dates" => $dates,
                 "participants" => $participants
             ]);
+        }
+
+        public function participate(Request $request, string $eventId)
+        {
+            $participation = json_decode($request->input('participation'));
+            $existing = ParticipantAvailable::where("date_id", $participation->date_id)
+                ->where("participant_id", $participation->user_id)
+                ->first();
+            if (isset($existing))
+            {
+                $existing->update([
+                    "state" => $participation->state
+                ]);
+            }
+            else
+            {
+                ParticipantAvailable::create([
+                    "participant_id" => $participation->user_id,
+                    "date_id" => $participation->date_id,
+                    "state" => $participation->state
+                ])->save();
+            }
+
+            return redirect("/events/" . $eventId);
         }
     }

@@ -12,6 +12,7 @@ use Illuminate\Database\Query\Builder;
  * @property int date_id
  * @property int state
  * @method static Builder where($a, $b)
+ * @method static create(array $array)
  */
 class ParticipantAvailable extends Model
 {
