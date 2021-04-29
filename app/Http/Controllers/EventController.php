@@ -142,6 +142,7 @@
                 ->get();
 
             return view('events.show')->with([
+                "user" => $this->getUser()->id,
                 "event" => $event,
                 "dates" => $dates,
                 "participants" => $participants
@@ -150,6 +151,11 @@
 
         public function participate(Request $request, string $eventId)
         {
+            if ($this->getUser()->id !== $request->input("participant_id"))
+            {
+                return redirect("/events/" . $eventId);
+            }
+
             $existing = ParticipantAvailable::where("date_id", $request->input("date_id"))
                 ->where("participant_id", $request->input("participant_id"))
                 ->first();

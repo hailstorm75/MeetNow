@@ -22,23 +22,23 @@
     <script>
         function ts(cb) {
             if (cb.readOnly)
-                cb.checked=cb.readOnly=false;
+                cb.checked = cb.readOnly = false;
             else if (!cb.checked)
-                cb.readOnly=cb.indeterminate=true;
+                cb.readOnly = cb.indeterminate = true;
 
             const state = cb.checked
                 ? 1
                 : cb.indeterminate
                     ? 0
                     : -1;
-            const ids = cb.id.split(":");
+            const ids = cb.id.split("_");
 
 
             $.ajax({
                 url: '/events/{{ $event->id }}/participate',
                 type: 'POST',
                 dataType: "json",
-                data : {
+                data: {
                     "_token": "{{ csrf_token() }}",
                     "state": state,
                     "participant_id": ids[0],
@@ -70,21 +70,19 @@
                     @foreach($participants->groupBy('name') as $key => $participantGroup)
                         <tr>
                             <td class="row">{{ $key }}</td>
-                            @foreach($dates as $date)
-                                @foreach($participantGroup as $participant)
-                                    <td class="text-center">
-                                        <input type="checkbox" id="{{ $participant->user_id }}:{{ $date->id }}" onclick="ts(this)" />
-                                        @if (isset($participant->state))
-                                            <script>
-                                                @if ($participant->state === 0)
-                                                    $("#{{ $participant->user_id }}:{{ $date->id }}").prop("indeterminate", true).submit();
-                                                @elseif ($participant->state === 1)
-                                                    $("#{{ $participant->user_id }}:{{ $date->id }}").prop("checked", true).submit();
-                                                @endif
-                                            </script>
-                                        @endif
-                                    </td>
-                                @endforeach
+                            @foreach(from($dates)->groupJoin($participantGroup, function ($d) { return $d->id; }, function ($p) { return $p->date_id; })->toArrayDeep() as $date)
+                                <td class="text-center">
+                                    <input type="checkbox" id="{{ $participantGroup[0]->user_id }}_{{ $date[0]->id }}" onclick="ts(this)" {{ $user !== $participantGroup[0]->user_id ? "disabled" : "" }} />
+                                    @if (isset($date[1][0]->state))
+                                        <script>
+                                            @if ($date[1][0]->state === 0)
+                                            $("#{{ $participantGroup[0]->user_id }}_{{ $date[0]->id }}").prop("indeterminate", true).submit();
+                                            @elseif ($date[1][0]->state === 1)
+                                            $("#{{ $participantGroup[0]->user_id }}_{{ $date[0]->id }}").prop("checked", true).submit();
+                                            @endif
+                                        </script>
+                                    @endif
+                                </td>
                             @endforeach
                         </tr>
                     @endforeach
