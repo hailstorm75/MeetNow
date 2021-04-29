@@ -7,7 +7,7 @@
         </div>
         <div class="col-auto d-flex align-items-center pl-0">
             <span>{{ auth()->user()->name }}</span>
-            <span class="ml-3"><a href="#">Logout</a></span>
+            <span class="ml-3"><a href="/logout">Logout</a></span>
         </div>
     </div>
 @endif
