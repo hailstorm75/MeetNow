@@ -25,7 +25,8 @@
                             <tbody>
                             @foreach($myEvents as $event)
                                 <tr>
-                                    <td class="align-middle" onclick="window.location.href='events/{{ $event->id }}';" style="cursor: pointer">{{ $event->title }}</td>
+                                    <td class="align-middle" onclick="window.location.href='events/{{ $event->id }}';"
+                                        style="cursor: pointer">{{ $event->title }}</td>
                                     <td>
                                         <button onclick="window.location.href='events/{{ $event->id }}/edit';"
                                                 class="btn btn-secondary bmd-btn-fab bmd-btn-fab-sm mb-0">
@@ -33,7 +34,8 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-info bmd-btn-fab bmd-btn-fab-sm mb-0" value="sdf">
+                                        <button type="button" class="btn btn-info bmd-btn-fab bmd-btn-fab-sm mb-0"
+                                                value="sdf">
                                             <i class="fa fa-share-alt" aria-hidden="true"></i>
                                         </button>
                                     </td>
@@ -85,8 +87,18 @@
                             <tbody>
                             @foreach($participatedEvents as $event)
                                 <tr>
-                                    <td class="align-middle" onclick="window.location.href='events/{{ $event->event_id }}';" style="cursor: pointer">{{ $event->title }}</td>
-                                    <td> Something</td>
+                                    <td class="align-middle"
+                                        onclick="window.location.href='events/{{ $event->event_id }}';"
+                                        style="cursor: pointer">{{ $event->title }}</td>
+                                    <td>
+                                        <form action="/events/{{ $event->event_id }}/leave" method="POST" class="mb-0">
+                                            @csrf
+                                            <button type="submit"
+                                                    class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm mb-0">
+                                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

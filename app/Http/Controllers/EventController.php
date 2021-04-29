@@ -130,6 +130,15 @@
             return redirect('/dashboard');
         }
 
+        public function leave(string $id)
+        {
+            EventParticipant::where("event_id", $id)->where("participant_id", $this->getUser()->id)->first()->delete();
+            $dates = Date::where("event_id", $id)->select("id")->get();
+            ParticipantAvailable::whereIn("date_id", $dates)->where("participant_id", $this->getUser()->id)->delete();
+
+            return redirect('/dashboard');
+        }
+
         public function show(string $id)
         {
             $event = Event::where('id', $id)->first();

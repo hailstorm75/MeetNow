@@ -13,6 +13,7 @@ use Illuminate\Database\Query\Builder;
  * @property int state
  * @method static Builder where($a, $b)
  * @method static create(array $array)
+ * @method static whereIn(string $string, $dates)
  */
 class ParticipantAvailable extends Model
 {
