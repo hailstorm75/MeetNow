@@ -85,7 +85,7 @@
                             <tbody>
                             @foreach($participatedEvents as $event)
                                 <tr>
-                                    <td>{{ $event->title }}</td>
+                                    <td class="align-middle" onclick="window.location.href='events/{{ $event->event_id }}';" style="cursor: pointer">{{ $event->title }}</td>
                                     <td> Something</td>
                                 </tr>
                             @endforeach
