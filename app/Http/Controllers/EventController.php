@@ -150,22 +150,21 @@
 
         public function participate(Request $request, string $eventId)
         {
-            $participation = json_decode($request->input('participation'));
-            $existing = ParticipantAvailable::where("date_id", $participation->date_id)
-                ->where("participant_id", $participation->user_id)
+            $existing = ParticipantAvailable::where("date_id", $request->input("date_id"))
+                ->where("participant_id", $request->input("participant_id"))
                 ->first();
             if (isset($existing))
             {
                 $existing->update([
-                    "state" => $participation->state
+                    "state" => $request->input("state")
                 ]);
             }
             else
             {
                 ParticipantAvailable::create([
-                    "participant_id" => $participation->user_id,
-                    "date_id" => $participation->date_id,
-                    "state" => $participation->state
+                    "participant_id" => $request->input("participant_id"),
+                    "date_id" => $request->input("date_id"),
+                    "state" => $request->input("state")
                 ])->save();
             }
 

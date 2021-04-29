@@ -26,5 +26,6 @@
     });
 
     Route::post('/events', [EventController::class, "store"])->name("store");
+    Route::post('/events/{id}/participate', [EventController::class, "participate"])->name("participate");
     Route::get('/events/{id}/join', [EventController::class, "join"])->name("join");
     Route::resource('/events', EventController::class)->except("index");
