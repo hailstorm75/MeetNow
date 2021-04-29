@@ -31,7 +31,7 @@ class AuthenticationController extends Controller
         // Register the user if needed
         if ($user === null) {
             $user = new User([
-                "name" => $response->getName(),
+                "name" => $response->getName() ?? $response->getEmail(),
                 "email" => $response->getEmail(),
                 "github_id" => $response->getId()
             ]);
