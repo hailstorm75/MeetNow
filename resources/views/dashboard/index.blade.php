@@ -5,6 +5,44 @@
 @endsection
 
 @section("content")
+    <script>
+        // Copies a string to the clipboard. Must be called from within an
+        // event handler such as click. May return false if it failed, but
+        // this is not always possible. Browser support for Chrome 43+,
+        // Firefox 42+, Safari 10+, Edge and Internet Explorer 10+.
+        // Internet Explorer: The clipboard feature may be disabled by
+        // an administrator. By default a prompt is shown the first
+        // time the clipboard is used (per session).
+        // https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
+        function copyToClipboard(text) {
+            if (window.clipboardData && window.clipboardData.setData) {
+                // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+                return window.clipboardData.setData("Text", text);
+            }
+            else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+                const textarea = document.createElement("textarea");
+                textarea.textContent = text;
+                textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in Microsoft Edge.
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+                }
+                catch (ex) {
+                    console.warn("Copy to clipboard failed.", ex);
+                    return false;
+                }
+                finally {
+                    document.body.removeChild(textarea);
+                }
+            }
+        }
+
+        function onShareClick(id) {
+            copyToClipboard(id);
+            alert("Copied event id to the clipboard");
+        }
+    </script>
     <div class="row ml-3 mr-3">
         <div class="col mr-sm-3">
             <div class="card">
@@ -35,7 +73,7 @@
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-info bmd-btn-fab bmd-btn-fab-sm mb-0"
-                                                value="sdf">
+                                                onclick="onShareClick('{{ $event->id }}')">
                                             <i class="fa fa-share-alt" aria-hidden="true"></i>
                                         </button>
                                     </td>
@@ -90,10 +128,10 @@
                                     <td class="align-middle"
                                         onclick="window.location.href='events/{{ $event->event_id }}';"
                                         style="cursor: pointer">{{ $event->title }}</td>
-                                    <td>
+                                    <td class="text-right">
                                         <form action="/events/{{ $event->event_id }}/leave" method="POST" class="mb-0">
                                             @csrf
-                                            <button type="submit"
+                                            <button title="Leave event" type="submit"
                                                     class="btn btn-danger bmd-btn-fab bmd-btn-fab-sm mb-0">
                                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                                             </button>
@@ -113,12 +151,14 @@
                     @endif
                 </div>
                 <div class="card-footer pt-0">
-                    <form class="mb-1">
+                    <form class="mb-1" action="/events/join" method="POST">
+                        @csrf
                         <div class="row">
                             <div class="col">
                                 <div class="form-group mb-0">
                                     <label for="tbx_event_code" class="bmd-label-floating">Event code</label>
                                     <input type="text" required maxlength="36" minlength="36"
+                                           name="code"
                                            pattern="[A-Za-z0-9]{8}-([A-Za-z0-9]{4}-){3}[A-Za-z0-9]{12}"
                                            class="form-control" id="tbx_event_code">
                                 </div>

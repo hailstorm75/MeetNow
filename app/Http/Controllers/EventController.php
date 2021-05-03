@@ -17,8 +17,9 @@
             return response()->view('events.create');
         }
 
-        public function join(string $id)
+        public function join(Request $request)
         {
+            $id = $request->input('code');
             $userId = $this->getUser()->id;
 
             if (EventParticipant::where("participant_id", $userId)->exists()
