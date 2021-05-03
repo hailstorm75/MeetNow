@@ -23,15 +23,12 @@
             $id = $request->input('code');
             $userId = $this->getUser()->id;
 
-            if (EventParticipant::where("participant_id", $userId)->exists()
-                || Event::where('id', $id)->where('owner_id', $userId)->exists()) {
-                return redirect("/events/" . $id);
+            if (EventParticipant::where("participant_id", $userId)->where("event_id", $id)->first() === null) {
+                EventParticipant::create([
+                    "participant_id" => $userId,
+                    "event_id" => $id
+                ]);
             }
-
-            EventParticipant::create([
-                "participant_id" => $userId,
-                "event_id" => $id
-            ]);
 
             return redirect("/events/" . $id);
         }
