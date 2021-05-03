@@ -7,6 +7,7 @@
     use App\Models\EventParticipant;
     use App\Models\ParticipantAvailable;
     use DateTime;
+    use Exception;
     use Illuminate\Http\Request;
     use Illuminate\Http\Response;
 
@@ -36,8 +37,7 @@
         }
 
         /**
-         * @throws \JsonException
-         * @throws \Exception
+         * @throws Exception
          */
         public function store(Request $request)
         {
@@ -74,6 +74,13 @@
         public function edit(string $id)
         {
             $event = Event::where("id", $id)->first();
+            if ($event === null) {
+                abort(404);
+            }
+            if ($event->owner_id !== $this->getUser()->id) {
+                abort(403);
+            }
+
             $dates = Date::where("event_id", $id)->get();
 
             return view('events.edit')->with([
@@ -83,7 +90,7 @@
         }
 
         /**
-         * @throws \Exception
+         * @throws Exception
          */
         public function update(Request $request, string $eventId)
         {
@@ -126,7 +133,10 @@
 
         public function destroy(string $id)
         {
-            Event::where("id", $id)->first()->delete();
+            $event = Event::where("id", $id)->first();
+            if ($event !== null && $event->owner_id === $this->getUser()->id) {
+                $event->delete();
+            }
 
             return redirect('/dashboard');
         }
@@ -142,6 +152,13 @@
 
         public function show(string $id)
         {
+            if (!EventParticipant::where("event_id", $id)
+                ->where("participant_id", $this->getUser()->id)
+                ->exists())
+            {
+                abort(403, 'Unauthorized action.');
+            }
+
             $event = Event::where('id', $id)->first();
             $dates = Date::where("event_id", $id)->get();
             $participants = EventParticipant::where("event_id", $id)
@@ -161,22 +178,18 @@
 
         public function participate(Request $request, string $eventId)
         {
-            if ((int)$request->input("participant_id") !== $this->getUser()->id)
-            {
+            if ((int)$request->input("participant_id") !== $this->getUser()->id) {
                 return redirect("/events/" . $eventId);
             }
 
             $existing = ParticipantAvailable::where("date_id", $request->input("date_id"))
                 ->where("participant_id", $request->input("participant_id"))
                 ->first();
-            if (isset($existing))
-            {
+            if (isset($existing)) {
                 $existing->update([
                     "state" => $request->input("state")
                 ]);
-            }
-            else
-            {
+            } else {
                 ParticipantAvailable::create([
                     "participant_id" => $request->input("participant_id"),
                     "date_id" => $request->input("date_id"),
