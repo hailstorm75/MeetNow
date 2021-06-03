@@ -18,6 +18,7 @@
     <em>
         Duration: {{ $event->length }} min
     </em>
+    <br>
 
     {{ $event->description }}
 @endsection
@@ -76,10 +77,6 @@
             z-index: 2;
         }
 
-        caption {
-            position: sticky;
-            left: 0;
-        }
     </style>
     <?php
 
