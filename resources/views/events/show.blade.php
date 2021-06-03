@@ -86,6 +86,19 @@
             left: 0;
         }
     </style>
+    <?php
+
+        function getParticipantsHeading($participants): string {
+            $count = $participants->groupBy('name')->count();
+            $result = $count . " participant";
+            if ($count > 1) {
+                return $result . "s";
+            }
+
+            return $result;
+        }
+
+    ?>
     <div class="col-sm-12 pl-0">
         <div class="card">
             <div class="card-header">
@@ -96,7 +109,7 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>{{ $participants->groupBy('name')->count() }} participant(s)</th>
+                            <th>{{ getParticipantsHeading($participants) }}</th>
                             @foreach($dates as $date)
                                 <th class="text-center">
                                     {{ str_replace("-", "/", explode(" ", $date->datetime)[0]) }}
