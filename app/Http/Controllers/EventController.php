@@ -23,6 +23,10 @@
             $id = $request->input('code');
             $userId = $this->getUser()->id;
 
+            if (Event::where('id', $id)->first() === null) {
+                return redirect("/dashboard");
+            }
+
             if (EventParticipant::where("participant_id", $userId)->where("event_id", $id)->first() === null) {
                 EventParticipant::create([
                     "participant_id" => $userId,
