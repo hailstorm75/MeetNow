@@ -68,6 +68,7 @@
         }
 
         table thead th:first-child {
+            white-space:nowrap;
             position: sticky;
             left: 0;
             z-index: 2;
@@ -95,7 +96,7 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Participant</th>
+                            <th>{{ $participants->groupBy('name')->count() }} participant(s)</th>
                             @foreach($dates as $date)
                                 <th class="text-center">
                                     {{ str_replace("-", "/", explode(" ", $date->datetime)[0]) }}
