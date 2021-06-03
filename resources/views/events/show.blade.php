@@ -52,8 +52,7 @@
         }
     </script>
     <style>
-        table td,
-        table th {
+        table td, table th {
             background-color: white;
         }
 
@@ -63,19 +62,15 @@
             z-index: 1;
         }
 
-        table tbody th {
-            position: relative;
-        }
-
         table thead th:first-child {
-            white-space:nowrap;
+            white-space: nowrap;
             position: sticky;
             left: 0;
             z-index: 2;
         }
 
         table tbody td:first-child {
-            white-space:nowrap;
+            white-space: nowrap;
             position: sticky;
             left: 0;
             z-index: 2;
@@ -88,24 +83,25 @@
     </style>
     <?php
 
-        function getParticipantsHeading($participants): string {
-            $count = $participants->groupBy('name')->count();
-            $result = $count . " participant";
-            if ($count > 1) {
-                return $result . "s";
-            }
-
-            return $result;
+    function getParticipantsHeading($participants): string
+    {
+        $count = $participants->groupBy('name')->count();
+        $result = $count . " participant";
+        if ($count > 1) {
+            return $result . "s";
         }
 
+        return $result;
+    }
+
     ?>
-    <div class="col-sm-12 pl-0">
+    <div class="col-sm pl-0">
         <div class="card">
             <div class="card-header">
                 <h3>Select dates</h3>
             </div>
             <div class="card-body">
-                <div style="overflow-x: auto">
+                <div style="overflow-x: auto;">
                     <table class="table">
                         <thead>
                         <tr>
