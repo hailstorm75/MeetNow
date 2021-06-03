@@ -38,12 +38,14 @@
          */
         public function store(Request $request)
         {
+
             $eventId = $this->newGuid();
             $userId = $this->getUser()->id;
 
             Event::create([
                 'id' => $eventId,
                 'owner_id' => $userId,
+                'length' => $request->input('length'),
                 'title' => $request->input('title'),
                 'description' => $request->input('description') ?? ""
             ])->save();
@@ -94,6 +96,7 @@
             Event::where('id', $eventId)
                 ->update([
                     'title' => $request->input('title'),
+                    'length' => $request->input('length'),
                     'description' => $request->input('description')
                 ]);
 
@@ -151,8 +154,7 @@
         {
             if (!EventParticipant::where("event_id", $id)
                 ->where("participant_id", $this->getUser()->id)
-                ->exists())
-            {
+                ->exists()) {
                 abort(403, 'Unauthorized action.');
             }
 
