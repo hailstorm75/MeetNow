@@ -44,8 +44,9 @@
         {
             $eventId = $this->newGuid();
             $userId = $this->getUser()->id;
+            $image = $request->input('image');
 
-            if (filter_var($request->input('image'), FILTER_VALIDATE_URL)) {
+            if (isset($image) && $image !== '' && (!filter_var($image, FILTER_VALIDATE_URL) || !preg_match("/^(.*)\.(jpg|png|svg|bmp)$/i", $image))) {
                 return redirect("/events/create");
             }
 
@@ -54,7 +55,7 @@
                 'owner_id' => $userId,
                 'length' => $request->input('length'),
                 'title' => $request->input('title'),
-                'image' => $request->input('image'),
+                'image' => $image ?? "",
                 'description' => $request->input('description') ?? ""
             ])->save();
             EventParticipant::create([

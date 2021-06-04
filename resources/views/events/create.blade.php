@@ -42,14 +42,16 @@
 
             const image = document.getElementById("tbx_image").value;
 
-            if (image.length !== 0 && !validURL(image)) {
-                alert("Please provide a valid url for the image");
-                return;
-            }
+            if (image.length !== 0) {
+                if (!validURL(image)) {
+                    alert("Please provide a valid url for the image");
+                    return;
+                }
 
-            if (!isImage(image)) {
-                alert("The provided url for the image is of an unsupported format. JPG, PNG, BMP, SVG are accepted.");
-                return;
+                if (!isImage(image)) {
+                    alert("The provided url for the image is of an unsupported format. JPG, PNG, BMP, SVG are accepted.");
+                    return;
+                }
             }
 
             $.ajax({
