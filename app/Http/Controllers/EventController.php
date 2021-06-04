@@ -104,11 +104,9 @@
         {
             $image = $request->input('image');
 
-            error_log("asdf");
             if (isset($image) && $image !== '' && (!filter_var($image, FILTER_VALIDATE_URL) || !preg_match("/^(.*)\.(jpg|png|svg|bmp)$/i", $image))) {
                 return redirect("/events/" . $eventId . "/edit");
             }
-            error_log("asdfasdfasdf");
 
             Event::where('id', $eventId)
                 ->update([
