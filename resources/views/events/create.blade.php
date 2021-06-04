@@ -63,7 +63,7 @@
                     "title": document.getElementById("tbx_eventName").value,
                     "length": document.getElementById("tbx_length").value,
                     "description": document.getElementById("tbx_eventDescription").value,
-                    "image": document.getElementById("tbx_image").value,
+                    "image": image,
                     "dates": JSON.stringify(dates, null, 2)
                 },
                 success: window.location.replace("/")
