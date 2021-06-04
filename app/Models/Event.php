@@ -29,7 +29,8 @@ class Event extends Model
         "title",
         "length",
         "owner_id",
-        "description"
+        "description",
+        "image",
     ];
 
     public function owner(): BelongsTo {

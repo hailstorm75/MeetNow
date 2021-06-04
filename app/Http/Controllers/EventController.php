@@ -42,15 +42,19 @@
          */
         public function store(Request $request)
         {
-
             $eventId = $this->newGuid();
             $userId = $this->getUser()->id;
+
+            if (filter_var($request->input('image'), FILTER_VALIDATE_URL)) {
+                return redirect("/events/create");
+            }
 
             Event::create([
                 'id' => $eventId,
                 'owner_id' => $userId,
                 'length' => $request->input('length'),
                 'title' => $request->input('title'),
+                'image' => $request->input('image'),
                 'description' => $request->input('description') ?? ""
             ])->save();
             EventParticipant::create([
@@ -101,6 +105,7 @@
                 ->update([
                     'title' => $request->input('title'),
                     'length' => $request->input('length'),
+                    'image' => $request->input('image'),
                     'description' => $request->input('description')
                 ]);
 
